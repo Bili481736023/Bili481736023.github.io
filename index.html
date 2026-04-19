@@ -35,10 +35,10 @@
     .right{
         width:66.66%;
         display:flex;
+        flex-direction: column;
         align-items:center;
-        justify-content:center;
-        font-size:18px;
-        color:#888;
+        gap: 25px;
+        padding: 10px 0;
     }
     .avatar{
         width:90px;
@@ -58,10 +58,12 @@
         line-height:2.2;
         margin-bottom:20px;
     }
-    .bilibili{
+    .link{
         color:#fb7299;
         text-decoration:none;
         font-size:17px;
+        display:block;
+        margin:6px 0;
     }
     .footer{
         text-align:center;
@@ -69,6 +71,38 @@
         color:#999;
         font-size:14px;
         line-height:1.6;
+    }
+    .video-card{
+        width: 80%;
+        max-width: 400px;
+        border-radius: 12px;
+        overflow:hidden;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+        position:relative;
+    }
+    .video-card img{
+        width:100%;
+        display:block;
+    }
+    .video-overlay{
+        position:absolute;
+        bottom:0;
+        left:0;
+        right:0;
+        padding:25px 15px;
+        color:#fff;
+        font-size:15px;
+        text-align:center;
+        background:linear-gradient(transparent, rgba(0,0,0,0.6));
+        pointer-events:none;
+    }
+    .video-card a{
+        display:block;
+        padding:10px;
+        text-align:center;
+        background:#f6f6f6;
+        color:#333;
+        text-decoration:none;
     }
 </style>
 </head>
@@ -79,13 +113,22 @@
         <div class="avatar">
             <img src="https://avatars.githubusercontent.com/u/277409198?v=4" alt="头像">
         </div>
+        
         <div class="content">
             一个爱编程、写小说、看B站的UP。<br>
             更新状态：（emmmmmm）........<br>
             谁说东北不能有少年科技UP的<br>
             QQ：2751675897
         </div>
-        <a href="https://space.bilibili.com/481736023" class="bilibili" target="_blank">
+
+        <!-- 你要的下载链接 + 小红书链接 -->
+        <a href="https://silver.yukaidi.com/s/0L3MhY/260416" class="link" target="_blank">
+            Vmware Tools 2026下载
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/6258defb0000000010006221" class="link" target="_blank">
+            我的小红书
+        </a>
+        <a href="https://space.bilibili.com/481736023" class="link" target="_blank">
             我的B站主页
         </a>
     </div>
@@ -93,7 +136,25 @@
     <div class="line"></div>
 
     <div class="right">
-        这里什么都没有～
+        <div class="video-card">
+            <img src="https://i1.hdslb.com/bfs/archive/dc0bead348d6d5edba355cbfdf2c16412667afce.jpg" alt="视频封面">
+            <div class="video-overlay">
+                一个视频教会你：如何把EDGE浏览器新建标签页变简洁
+            </div>
+            <a href="https://www.bilibili.com/video/BV14DFkzEE6W" target="_blank">
+                点击观看我的视频 →
+            </a>
+        </div>
+
+        <div class="video-card">
+            <img src="https://i1.hdslb.com/bfs/archive/5d5d37d67ec51a62a17d03d4d0e264e6b095b1d7.jpg" alt="视频封面">
+            <div class="video-overlay">
+                腾讯微云的离谱瞬间
+            </div>
+            <a href="https://www.bilibili.com/video/BV1uDf4BgEMs" target="_blank">
+                点击观看我的视频 →
+            </a>
+        </div>
     </div>
 </div>
 
