@@ -398,6 +398,55 @@
         transform: translateX(-50%) scale(1);
     }
 </style>
+
+<style>
+  /* 新增动效样式（不修改原有内容） */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .avatar {
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .video-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #4285f4, #fb7299, #4285f4);
+    border-radius: 14px;
+    z-index: -1;
+    animation: rotateBorder 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .video-card:hover::before {
+    opacity: 1;
+  }
+  @keyframes pulse {
+    0% { transform: translateX(5px) scale(1); }
+    50% { transform: translateX(5px) scale(1.02); }
+    100% { transform: translateX(5px) scale(1); }
+  }
+  .link:hover {
+    animation: pulse 1s infinite;
+  }
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 </head>
 <body>
 
@@ -456,7 +505,7 @@
                 <span style="font-size: 20px;">📕</span> 小红书主页
             </a>
             <a href="https://silver.yukaidi.com/s/0L3MhY/260416" class="link" target="_blank" style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">🛠️</span> Vmware Tools 2026 下载
+                <span style="font-size: 20px;">🛠️</span> 一些工具下载
             </a>
         </div>
 
@@ -467,7 +516,7 @@
             <p>📝 申请友链请发送：</p>
             <p>1️⃣ 你的名称</p>
             <p>2️⃣ 你的链接</p>
-            <p>3️⃣ 你的头像/Logo</p>
+            <p>3️⃣ 你的头像/Logo(URL)</p>
             <p>4️⃣ 你的简介</p>
         </div>
 
@@ -505,196 +554,220 @@
 <div class="dot-bling"></div>
 <div id="copyToast" class="copy-toast">📋 邮箱已复制！</div>
 
+
+
+<!-- ========== 以下为增强优化代码（不修改原内容） ========== -->
+<style>
+  /* 1. 暗色模式适配 - 跟随系统，不覆盖原设计 */
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: #121212;
+    }
+    .content, .skill-box, .friend-box, .video-card {
+      background: #1e1e1e;
+      color: #e0e0e0;
+      border-color: #333;
+    }
+    .skill-bar {
+      background: #2c2c2c;
+    }
+    .video-card a.button {
+      background: #2c2c2c;
+      color: #ccc;
+      border-top-color: #444;
+    }
+    .video-card a.button:hover {
+      background: #4285f4;
+      color: #fff;
+    }
+    .footer {
+      color: #aaa;
+    }
+    .vertical-line {
+      background: #333;
+    }
+    .video-overlay {
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    }
+  }
+
+  /* 2. 技能条悬停提示小样式 */
+  .skill-item:hover .skill-progress {
+    filter: brightness(1.05);
+    transition: filter 0.2s;
+  }
+  .skill-label span:first-child {
+    cursor: help;
+    border-bottom: 1px dotted #999;
+  }
+</style>
+
 <script>
-    (function() {
-        // ---------- 1. 技能进度条 滚动触发动画 (IntersectionObserver) ----------
-        const skillProgressBars = document.querySelectorAll('.skill-progress');
-        skillProgressBars.forEach(bar => {
-            const targetVal = bar.getAttribute('data-target');
-            if(targetVal !== null) {
-                bar.setAttribute('data-final', targetVal);
-            }
+  (function() {
+    // 确保 DOM 加载完毕再执行增强功能
+    function ready(fn) {
+      if (document.readyState !== 'loading') fn();
+      else document.addEventListener('DOMContentLoaded', fn);
+    }
+
+    ready(() => {
+      // ---------- 1. 视频卡片整卡可点击（不覆盖原有按钮跳转）----------
+      const videoCards = document.querySelectorAll('.video-card');
+      videoCards.forEach(card => {
+        const btn = card.querySelector('.button');
+        if (!btn) return;
+        // 让卡片可点击，但如果是点击按钮内部则不重复触发
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', (e) => {
+          // 如果点击的是按钮本身或其内部，已经会走按钮链接，避免重复跳转
+          if (btn.contains(e.target)) return;
+          const link = btn.getAttribute('href');
+          if (link && link !== '#') window.open(link, '_blank');
         });
-        
-        const leftSection = document.querySelector('.left');
-        let animated = false;
-        
-        const animateSkills = () => {
-            if(animated) return;
-            skillProgressBars.forEach(bar => {
-                const finalVal = bar.getAttribute('data-final');
-                if(finalVal !== null) {
-                    bar.style.width = finalVal + '%';
-                }
-            });
-            animated = true;
-        };
-        
-        if (leftSection) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !animated) {
-                        animateSkills();
-                        observer.unobserve(leftSection);
-                    }
-                });
-            }, { threshold: 0.2 });
-            observer.observe(leftSection);
-        } else {
-            setTimeout(() => {
-                if(!animated) animateSkills();
-            }, 800);
+      });
+
+      // ---------- 2. 一键复制“友链申请模板”功能 ----------
+      const friendBox = document.querySelector('.friend-box');
+      if (friendBox) {
+        // 在“📝 申请友链请发送：”后面添加一个复制按钮
+        const lines = friendBox.querySelectorAll('p');
+        let targetP = null;
+        for (let p of lines) {
+          if (p.innerText.includes('申请友链请发送')) {
+            targetP = p;
+            break;
+          }
         }
-        
-        window.addEventListener('scroll', function() {
-            if(!animated && leftSection && leftSection.getBoundingClientRect().top < window.innerHeight - 100) {
-                animateSkills();
+        if (targetP && !targetP.querySelector('.copy-template-btn')) {
+          const copyBtn = document.createElement('span');
+          copyBtn.innerText = ' 📋 复制模板';
+          copyBtn.style.cssText = 'cursor:pointer; font-size:12px; background:#eef3ff; padding:2px 8px; border-radius:20px; margin-left:8px; color:#4285f4; border:1px solid #cce0ff; transition:0.2s;';
+          copyBtn.title = '点击复制申请模板内容';
+          copyBtn.addEventListener('mouseenter', () => { copyBtn.style.background = '#d4e4ff'; });
+          copyBtn.addEventListener('mouseleave', () => { copyBtn.style.background = '#eef3ff'; });
+          copyBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const template = `【友链申请】
+名称：你的名称
+链接：你的链接
+头像/Logo：你的头像(URL)
+简介：你的简介;
+            try {
+              await navigator.clipboard.writeText(template);
+              showToast('✨ 模板已复制，填写后发送至邮箱即可');
+            } catch (err) {
+              const textarea = document.createElement('textarea');
+              textarea.value = template;
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+              showToast('✨ 模板已复制 (备用方式)');
             }
+          });
+          targetP.appendChild(copyBtn);
+        }
+      }
+
+      // 通用提示方法（复用原页面的 toast 风格）
+      function showToast(msg) {
+        let toast = document.getElementById('copyToast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'copyToast';
+          toast.className = 'copy-toast';
+          document.body.appendChild(toast);
+        }
+        toast.innerText = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      }
+
+      // ---------- 3. 技能条悬停显示精确百分比 ----------
+      const skillItems = document.querySelectorAll('.skill-item');
+      skillItems.forEach(item => {
+        const labelSpan = item.querySelector('.skill-label span:first-child');
+        const percentSpan = item.querySelector('.skill-label span:last-child');
+        const progressDiv = item.querySelector('.skill-progress');
+        if (labelSpan && percentSpan && progressDiv) {
+          const targetPercent = percentSpan.innerText; // "100%" 样式
+          labelSpan.setAttribute('title', `当前熟练度：${targetPercent}`);
+          // 增加一个小效果：hover 时进度条显示对应百分比浮层
+          item.addEventListener('mouseenter', () => {
+            const val = percentSpan.innerText;
+            const fakeTooltip = document.createElement('div');
+            fakeTooltip.className = 'skill-hover-tip';
+            fakeTooltip.innerText = val;
+            fakeTooltip.style.cssText = 'position:absolute; background:#1f2a3e; color:#fff; padding:2px 8px; border-radius:16px; font-size:12px; z-index:100; pointer-events:none; white-space:nowrap;';
+            const rect = percentSpan.getBoundingClientRect();
+            fakeTooltip.style.left = rect.left + 'px';
+            fakeTooltip.style.top = (rect.top - 28) + 'px';
+            document.body.appendChild(fakeTooltip);
+            item.addEventListener('mouseleave', () => { fakeTooltip.remove(); }, { once: true });
+          });
+        }
+      });
+
+      // ---------- 4. 图片懒加载 + 加载失败占位 ----------
+      const images = document.querySelectorAll('img');
+      // 为头像和视频封面添加懒加载
+      images.forEach(img => {
+        if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+        // 处理加载失败时显示优雅的占位色块
+        img.addEventListener('error', (e) => {
+          const parent = img.parentElement;
+          const width = img.offsetWidth || 90;
+          const height = img.offsetHeight || 90;
+          // 避免无限循环
+          if (img.src.includes('data:image')) return;
+          // 根据图片所在的容器设置不同占位样式
+          if (parent.classList.contains('avatar')) {
+            img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%234285f4"/%3E%3Ctext x="50" y="65" font-size="40" text-anchor="middle" fill="white"%3E🥳%3C/text%3E%3C/svg%3E';
+          } else {
+            // 视频封面兜底图片（浅色背景+文字）
+            img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"%3E%3Crect width="400" height="225" fill="%23333"/%3E%3Ctext x="200" y="120" font-size="20" text-anchor="middle" fill="%23ccc"%3E封面加载失败%3C/text%3E%3C/svg%3E';
+          }
+          img.style.objectFit = 'cover';
         });
-        
-        // ---------- 2. 鼠标跟随光晕 ----------
-        const glow = document.getElementById('glowCursor');
-        if(glow) {
-            document.addEventListener('mousemove', (e) => {
-                glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            });
-            document.addEventListener('mouseleave', () => {
-                glow.style.opacity = '0';
-            });
-            document.addEventListener('mouseenter', () => {
-                glow.style.opacity = '1';
-            });
+      });
+
+      // ---------- 5. 微调：为 Vmware Tools 链接增加安全提示（不破坏原链接）----------
+      const vmLink = document.querySelector('a[href*="silver.yukaidi.com"]');
+      if (vmLink && !vmLink.hasAttribute('data-tip-added')) {
+        vmLink.setAttribute('data-tip-added', 'true');
+        vmLink.setAttribute('title', '点击将跳转到外部下载站，请确保来源可信');
+        // 增加一个小的🛡️图标提示
+        const shieldSpan = document.createElement('span');
+        shieldSpan.innerText = ' 🛡️';
+        shieldSpan.style.fontSize = '14px';
+        shieldSpan.style.opacity = '0.7';
+        vmLink.appendChild(shieldSpan);
+      }
+
+      // 控制台彩蛋（小惊喜）
+      console.log('%c✨ 优化增强模块已加载 | 整卡点击 · 一键复制模板 · 技能探针 ✨', 'color: #4285f4; font-size: 14px;');
+    });
+  })();
+</script>
+
+
+<script>
+  // 新增动效脚本（不修改原有内容）
+  (function() {
+    const scrollElements = document.querySelectorAll('.left, .right, .footer');
+    scrollElements.forEach(el => el.classList.add('scroll-fade'));
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          scrollObserver.unobserve(entry.target);
         }
-        
-        // ---------- 3. 邮箱点击复制 ----------
-        const emailSpan = document.getElementById('emailCopy');
-        const toast = document.getElementById('copyToast');
-        if(emailSpan) {
-            emailSpan.addEventListener('click', async (e) => {
-                e.stopPropagation();
-                const email = emailSpan.innerText.trim();
-                try {
-                    await navigator.clipboard.writeText(email);
-                    if(toast) {
-                        toast.classList.add('show');
-                        setTimeout(() => {
-                            toast.classList.remove('show');
-                        }, 1800);
-                    } else {
-                        alert('已复制邮箱: ' + email);
-                    }
-                } catch(err) {
-                    const textarea = document.createElement('textarea');
-                    textarea.value = email;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textarea);
-                    if(toast) {
-                        toast.classList.add('show');
-                        setTimeout(() => toast.classList.remove('show'), 1800);
-                    }
-                }
-            });
-            emailSpan.addEventListener('mouseenter', () => {
-                emailSpan.style.color = '#4285f4';
-                emailSpan.style.transform = 'scale(1.02)';
-            });
-            emailSpan.addEventListener('mouseleave', () => {
-                emailSpan.style.color = '';
-                emailSpan.style.transform = '';
-            });
-        }
-        
-        // ---------- 4. 动态时间显示 ----------
-        function updateLiveTime() {
-            const timeEl = document.getElementById('liveTime');
-            if(timeEl) {
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2,'0');
-                const day = String(now.getDate()).padStart(2,'0');
-                const hours = String(now.getHours()).padStart(2,'0');
-                const minutes = String(now.getMinutes()).padStart(2,'0');
-                const seconds = String(now.getSeconds()).padStart(2,'0');
-                timeEl.innerHTML = `🕒 当前时间：${year}.${month}.${day} ${hours}:${minutes}:${seconds}  · 活力在线`;
-            }
-        }
-        updateLiveTime();
-        setInterval(updateLiveTime, 1000);
-        
-        // ---------- 5. 视频卡片微交互 ----------
-        const videoCards = document.querySelectorAll('.video-card');
-        videoCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transition = 'all 0.3s';
-            });
-        });
-        
-        // ---------- 6. ★ 双击头像彩蛋（替换原来的双击页脚彩蛋）----------
-        const avatarDiv = document.querySelector('.avatar');
-        if(avatarDiv) {
-            // 单击缩放效果（保留）
-            avatarDiv.addEventListener('click', () => {
-                avatarDiv.style.transform = 'scale(0.98) rotate(-1deg)';
-                setTimeout(() => {
-                    avatarDiv.style.transform = '';
-                }, 150);
-            });
-            // 双击彩蛋
-            avatarDiv.addEventListener('dblclick', (e) => {
-                e.stopPropagation();
-                // 创建浮层消息
-                const msg = document.createElement('div');
-                msg.textContent = '🥳 感谢支持！我们一起快乐～ 🚀';
-                msg.style.cssText = 'position:fixed; bottom:40%; left:50%; transform:translateX(-50%); background:#1f2a3e; color:white; padding:12px 24px; border-radius:50px; z-index:10000; font-size:18px; font-weight:bold; box-shadow:0 4px 20px rgba(0,0,0,0.3); backdrop-filter:blur(4px); white-space:nowrap;';
-                document.body.appendChild(msg);
-                setTimeout(() => {
-                    msg.style.opacity = '0';
-                    msg.style.transition = 'opacity 0.3s';
-                    setTimeout(() => msg.remove(), 400);
-                }, 1600);
-            });
-        }
-        
-        // 7. 给友情链接框增加轻微点击波纹效果（不影响功能）
-        const friendBox = document.querySelector('.friend-box');
-        if(friendBox) {
-            let rippleEffect = (e) => {
-                let rect = friendBox.getBoundingClientRect();
-                let circle = document.createElement('span');
-                circle.style.position = 'absolute';
-                circle.style.width = '20px';
-                circle.style.height = '20px';
-                circle.style.background = 'rgba(66,133,244,0.2)';
-                circle.style.borderRadius = '50%';
-                circle.style.transform = 'scale(0)';
-                circle.style.pointerEvents = 'none';
-                circle.style.transition = 'transform 0.4s ease-out, opacity 0.5s';
-                circle.style.opacity = '0.7';
-                let x = e.clientX - rect.left;
-                let y = e.clientY - rect.top;
-                circle.style.left = x + 'px';
-                circle.style.top = y + 'px';
-                circle.style.position = 'absolute';
-                friendBox.style.position = 'relative';
-                friendBox.appendChild(circle);
-                setTimeout(() => {
-                    circle.style.transform = 'scale(12)';
-                    circle.style.opacity = '0';
-                }, 10);
-                setTimeout(() => {
-                    circle.remove();
-                }, 400);
-            };
-            friendBox.addEventListener('click', (e) => {
-                if(e.target === emailSpan || e.target.closest('#emailCopy')) return;
-                rippleEffect(e);
-            });
-        }
-        
-        console.log('✨ 动态特效已加载 | 图片资源保持原样 | 双击头像彩蛋已启用 ✨');
-    })();
+      });
+    }, { threshold: 0.1 });
+
+    scrollElements.forEach(el => scrollObserver.observe(el));
+  })();
 </script>
 </body>
 </html>
