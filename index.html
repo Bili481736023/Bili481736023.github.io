@@ -2,66 +2,26 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>爱玩机的学生-cpp的个人主页</title>
-<!-- 🥳 自定义图标：烟花庆祝表情 -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='65' font-size='60' text-anchor='middle' dominant-baseline='middle'%3E🥳%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爱编程的学生-Cpp的个人主页</title>
 <style>
     *{
         margin:0;
         padding:0;
         box-sizing:border-box;
     }
-            body{
+    body{
         background:#fff;
         color:#000;
         font-family:"Microsoft YaHei",sans-serif;
         min-height:100vh;
         padding:20px;
     }
-    /* 动态背景动画 */
-        /* @keyframes flowTech {
-        0% { background-position: 0% 0%; }
-        25% { background-position: 100% 0%; }
-        50% { background-position: 100% 100%; }
-        75% { background-position: 0% 100%; }
-        100% { background-position: 0% 0%; }
-    } */
-    
-    /* 鼠标跟随光晕 (动态效果，不干扰布局) */
-    .glow-cursor {
-        position: fixed;
-        width: 280px;
-        height: 280px;
-        background: radial-gradient(circle, rgba(66,133,244,0.08) 0%, rgba(66,133,244,0) 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.08s ease-out;
-        will-change: transform;
-    }
-    
     .main{
         display:flex;
         max-width:1000px;
         margin:0 auto;
-        position: relative;
-        z-index: 2;
-        /* 淡入入场动画 */
-        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
     }
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
     .left{
         flex:0 0 33.33%;
         padding-right:30px;
@@ -71,26 +31,7 @@
         background:#ddd;
         margin:0 20px;
         align-self:stretch;
-        position: relative;
-        overflow: hidden;
     }
-    /* 竖线动态流光效果 */
-    .vertical-line::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, transparent, #4285f4, #fb7299, transparent);
-        animation: lineGlow 3s linear infinite;
-        opacity: 0.6;
-    }
-    @keyframes lineGlow {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(100%); }
-    }
-    
     .right{
         flex:1;
         display:flex;
@@ -107,103 +48,37 @@
         overflow:hidden;
         border:2px solid #000;
         margin-bottom:20px;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        cursor: pointer;
-    }
-    .avatar:hover {
-        transform: scale(1.05) rotate(2deg);
-        border-color: #4285f4;
-        box-shadow: 0 8px 20px rgba(66,133,244,0.3);
     }
     .avatar img{
         width:100%;
         height:100%;
         object-fit:cover;
-        transition: transform 0.4s ease;
     }
-    .avatar:hover img {
-        transform: scale(1.08);
-    }
-    
     .content{
         font-size:17px;
         line-height:2.2;
         margin-bottom:20px;
-        background: linear-gradient(120deg, #fff, #f5f7ff);
-        padding: 12px 16px;
-        border-radius: 24px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        transition: all 0.25s;
     }
-    .content:hover {
-        transform: translateX(6px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    
     .link{
         color:#fb7299;
         text-decoration:none;
         font-size:17px;
         display:block;
         margin:6px 0;
-        transition: all 0.2s ease;
-        position: relative;
-        width: fit-content;
-    }
-    .link:hover {
-        color:#4285f4;
-        transform: translateX(5px);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .link::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0%;
-        height: 2px;
-        background: #4285f4;
-        transition: width 0.3s ease;
-    }
-    .link:hover::after {
-        width: 100%;
     }
 
-    /* 技能卡片 增强动态 */
+    /* 技能卡片 */
     .skill-box{
         border:1px solid #ddd;
         border-radius:10px;
         padding:15px;
         margin-top:20px;
-        background: rgba(255,255,255,0.9);
-        backdrop-filter: blur(2px);
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-    }
-    .skill-box:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 20px -12px rgba(66,133,244,0.2);
-        border-color: #cce0ff;
     }
     .skill-box h3{
         font-size:16px;
         margin-bottom:12px;
         text-align:center;
-        position: relative;
-        display: inline-block;
-        width: 100%;
     }
-    .skill-box h3::before {
-        content: '✨';
-        margin-right: 6px;
-        opacity: 0;
-        transition: opacity 0.2s;
-    }
-    .skill-box:hover h3::before {
-        opacity: 1;
-    }
-    
     .skill-item{
         margin-bottom:10px;
     }
@@ -223,45 +98,67 @@
         height:100%;
         background:#4285f4;
         border-radius:4px;
-        width: 0%;  /* 初始0%，动画过渡 */
-        transition: width 0.9s cubic-bezier(0.22, 0.97, 0.36, 1.02);
-        box-shadow: 0 0 3px rgba(66,133,244,0.5);
     }
 
-    /* 友情链接卡片动态 */
+    /* 友情链接卡片 */
     .friend-box{
         border:1px solid #ddd;
         border-radius:10px;
         padding:15px;
         margin-top:20px;
-        transition: all 0.3s;
-        background: #fefefe;
-    }
-    .friend-box:hover {
-        background: #ffffff;
-        border-color: #b3d4ff;
-        box-shadow: 0 8px 18px rgba(0,0,0,0.05);
-        transform: translateY(-2px);
     }
     .friend-box h3{
         font-size:16px;
         margin-bottom:12px;
         text-align:center;
-        color: #2c3e66;
     }
-    .friend-box p {
-        font-size: 14px;
-        line-height: 1.6;
-        margin: 8px 0;
-        transition: color 0.2s;
+    .friend-card{
+        display:block;
+        border:1px solid #eee;
+        border-radius:8px;
+        padding:12px;
+        margin-bottom:10px;
+        text-decoration:none;
+        color:inherit;
+        transition:0.2s;
     }
-    .friend-box p:hover {
-        color: #4285f4;
-        transform: translateX(4px);
-        transition: 0.2s;
+    .friend-card:hover{
+        background:#f7f7f7;
+    }
+    .friend-card:last-child{
+        margin-bottom:0;
+    }
+    .friend-head{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        margin-bottom:6px;
+    }
+    .friend-avatar{
+        width:40px;
+        height:40px;
+        border-radius:50%;
+        object-fit:cover;
+    }
+    .friend-name{
+        font-weight:bold;
+        font-size:15px;
+    }
+    .friend-desc{
+        font-size:13px;
+        color:#666;
+        line-height:1.4;
     }
 
-    /* 视频卡片动效 */
+    .footer{
+        text-align:center;
+        margin-top:40px;
+        color:#999;
+        font-size:14px;
+        line-height:1.6;
+    }
+
+    /* 视频卡片 */
     .video-card{
         width:100%;
         max-width:400px;
@@ -269,21 +166,10 @@
         overflow:hidden;
         box-shadow:0 0 10px rgba(0,0,0,0.1);
         position:relative;
-        transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        background: #fff;
-        cursor: pointer;
-    }
-    .video-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
     }
     .video-card img{
         width:100%;
         display:block;
-        transition: transform 0.45s ease;
-    }
-    .video-card:hover img {
-        transform: scale(1.05);
     }
     .video-overlay{
         position:absolute;
@@ -294,14 +180,8 @@
         color:#fff;
         font-size:15px;
         text-align:center;
-        background:linear-gradient(transparent,rgba(0,0,0,0.7));
+        background:linear-gradient(transparent,rgba(0,0,0,0.6));
         pointer-events:none;
-        transition: backdrop-filter 0.3s, padding 0.3s;
-    }
-    .video-card:hover .video-overlay {
-        background: linear-gradient(transparent, rgba(0,0,0,0.85));
-        padding-bottom: 30px;
-        letter-spacing: 0.5px;
     }
     .video-card a.button{
         display:block;
@@ -310,35 +190,9 @@
         background:#f6f6f6;
         color:#333;
         text-decoration:none;
-        transition: all 0.25s;
-        font-weight: 500;
-        border-top: 1px solid #eee;
-    }
-    .video-card a.button:hover {
-        background: #4285f4;
-        color: white;
-        letter-spacing: 1px;
     }
 
-    /* 页脚动态效果 */
-    .footer{
-        text-align:center;
-        margin-top:40px;
-        color:#999;
-        font-size:14px;
-        line-height:1.6;
-        position: relative;
-        z-index: 2;
-        animation: fadeInUp 0.8s 0.1s backwards;
-    }
-    .footer p {
-        transition: all 0.2s;
-    }
-    .footer p:hover {
-        color: #4285f4;
-    }
-
-    /* 自适应不破坏布局 */
+    /* 自适应 */
     @media (max-width:767px){
         .main{
             flex-direction:column;
@@ -353,103 +207,11 @@
         .right{
             margin-top:30px;
         }
-        .glow-cursor {
-            display: none; /* 移动端隐藏鼠标光晕 */
-        }
     }
-    
-    /* 一个小点缀: 动态波纹点 (纯装饰) */
-    .dot-bling {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        background: rgba(66,133,244,0.2);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 0;
-        animation: pulseRing 2s infinite;
-    }
-    @keyframes pulseRing {
-        0% { transform: scale(0.8); opacity: 0.6; }
-        100% { transform: scale(1.4); opacity: 0; }
-    }
-    
-    /* 邮箱复制提示 */
-    .copy-toast {
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%) scale(0.9);
-        background: #1f2a3e;
-        color: white;
-        padding: 8px 18px;
-        border-radius: 40px;
-        font-size: 14px;
-        z-index: 1000;
-        opacity: 0;
-        transition: opacity 0.2s, transform 0.2s;
-        pointer-events: none;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .copy-toast.show {
-        opacity: 1;
-        transform: translateX(-50%) scale(1);
-    }
-</style>
-
-<style>
-  /* 新增动效样式（不修改原有内容） */
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-  .avatar {
-    animation: float 5s ease-in-out infinite;
-  }
-  @keyframes rotateBorder {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  .video-card::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #4285f4, #fb7299, #4285f4);
-    border-radius: 14px;
-    z-index: -1;
-    animation: rotateBorder 4s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .video-card:hover::before {
-    opacity: 1;
-  }
-  @keyframes pulse {
-    0% { transform: translateX(5px) scale(1); }
-    50% { transform: translateX(5px) scale(1.02); }
-    100% { transform: translateX(5px) scale(1); }
-  }
-  .link:hover {
-    animation: pulse 1s infinite;
-  }
-  .scroll-fade {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .scroll-fade.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
 </style>
 </head>
-<body>
 
+<body>
 <div class="main">
     <div class="left">
         <div class="avatar">
@@ -458,316 +220,82 @@
         
         <div class="content">
             一个爱编程、写小说、看B站的UP。<br>
-            谁说东北不能有学生科技UP的<br>
-            QQ：2751675897<br>
-            Q群：1103802773
+            更新状态：（emmmmmm）........<br>
+            谁说东北不能有少年科技UP的<br>
+            QQ：2751675897
         </div>
 
-        <!-- 学习进度 动态条形图 -->
+        <!-- 学习进度 -->
         <div class="skill-box">
-            <h3>📈 学习进度 · 动态成长</h3>
+            <h3>学习进度</h3>
             <div class="skill-item">
                 <div class="skill-label"><span>Scratch</span><span>100%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-target="100" style="width:0%"></div></div>
+                <div class="skill-bar"><div class="skill-progress" style="width:100%"></div></div>
             </div>
             <div class="skill-item">
                 <div class="skill-label"><span>C++</span><span>20%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-target="20" style="width:0%"></div></div>
+                <div class="skill-bar"><div class="skill-progress" style="width:20%"></div></div>
             </div>
             <div class="skill-item">
                 <div class="skill-label"><span>Python</span><span>0%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-target="0" style="width:0%"></div></div>
+                <div class="skill-bar"><div class="skill-progress" style="width:0%"></div></div>
             </div>
             <div class="skill-item">
                 <div class="skill-label"><span>Java</span><span>0%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-target="0" style="width:0%"></div></div>
+                <div class="skill-bar"><div class="skill-progress" style="width:0%"></div></div>
             </div>
             <div class="skill-item">
                 <div class="skill-label"><span>HTML</span><span>0%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-target="0" style="width:0%"></div></div>
+                <div class="skill-bar"><div class="skill-progress" style="width:0%"></div></div>
             </div>
             <div class="skill-item">
                 <div class="skill-label"><span>JavaScript</span><span>0%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-target="0" style="width:0%"></div></div>
+                <div class="skill-bar"><div class="skill-progress" style="width:0%"></div></div>
             </div>
             <div class="skill-item">
                 <div class="skill-label"><span>CSS</span><span>0%</span></div>
-                <div class="skill-bar"><div class="skill-progress" data-target="0" style="width:0%"></div></div>
+                <div class="skill-bar"><div class="skill-progress" style="width:0%"></div></div>
             </div>
         </div>
 
-        <!-- ★ 新增：B站、小红书、Vmware Tools 链接（放在学习进度下方） -->
-        <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
-            <a href="https://space.bilibili.com/481736023" class="link" target="_blank" style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">📺</span> B站主页
-            </a>
-            <a href="https://www.xiaohongshu.com/user/profile/6258defb0000000010006221" class="link" target="_blank" style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">📕</span> 小红书主页
-            </a>
-            <a href="https://silver.yukaidi.com/s/0L3MhY/260416" class="link" target="_blank" style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">🛠️</span> 一些工具下载
-            </a>
-        </div>
-
         <!-- 友情链接卡片 -->
-        <div class="friend-box" id="friendBox">
-            <h3>🔗 友情链接 · 申请方式</h3>
-            <p>📧 联系邮箱：<span id="emailCopy" style="cursor:pointer; border-bottom:1px dashed #4285f4; font-weight:500;">bili481736023@outlook.com</span> <span style="font-size:12px;">✍️ 点击复制</span></p>
-            <p>📝 申请友链请发送：</p>
-            <p>1️⃣ 你的名称</p>
-            <p>2️⃣ 你的链接</p>
-            <p>3️⃣ 你的头像/Logo(URL)</p>
-            <p>4️⃣ 你的简介</p>
+        <div class="friend-box">
+            <h3>友情链接</h3>
+
+            		<p>联系邮箱：bili481736023@outlook.com</p>
+			<p>申请友链请发送：</p>
+			<p>1. 你的名称</p>
+			<p>2. 你的链接</p>
+			<p>3. 你的头像/Logo</p>
+			<p>4. 你的简介</p>
+
         </div>
 
-        <!-- 注意：原来的底部单独的 Vmware Tools 链接已被删除，不再重复 -->
+        <a href="https://silver.yukaidi.com/s/0L3MhY/260416" class="link" target="_blank">Vmware Tools 2026下载</a>
     </div>
 
     <div class="vertical-line"></div>
 
     <div class="right">
-        <div style="text-align: center; font-size: 18px; font-weight: bold; color: #000; margin-bottom: 10px; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">🎬 我的B站视频精选</div>
         <!-- 视频1 -->
         <div class="video-card">
             <img src="1.webp" alt="封面">
-            <div class="video-overlay">🎬 一个视频教会你：如何把EDGE浏览器新建标签页变简洁</div>
-            <a href="https://www.bilibili.com/video/BV14DFkzEE6W" class="button" target="_blank">▶ 点击观看我的视频 →</a>
+            <div class="video-overlay">一个视频教会你：如何把EDGE浏览器新建标签页变简洁</div>
+            <a href="https://www.bilibili.com/video/BV14DFkzEE6W" class="button" target="_blank">点击观看我的视频 →</a>
         </div>
 
         <!-- 视频2 -->
         <div class="video-card">
             <img src="2.webp" alt="封面">
-            <div class="video-overlay">🤣 腾讯微云的离谱瞬间</div>
-            <a href="https://www.bilibili.com/video/BV1uDf4BgEMs" class="button" target="_blank">▶ 点击观看我的视频 →</a>
+            <div class="video-overlay">腾讯微云的离谱瞬间</div>
+            <a href="https://www.bilibili.com/video/BV1uDf4BgEMs" class="button" target="_blank">点击观看我的视频 →</a>
         </div>
     </div>
 </div>
 
 <div class="footer">
-    <p>✨ 基于 GitHub Pages 搭建 ✨</p>
+    <p>基于 GitHub Pages 搭建</p>
     <p>© 2024-2026 免费 · 稳定 · 永久在线</p>
-    <p style="font-size:12px; margin-top:8px;" id="liveTime">⏱️ 动态陪伴中...</p>
 </div>
-
-<!-- 鼠标跟随光晕装饰 -->
-<div class="glow-cursor" id="glowCursor"></div>
-<div class="dot-bling"></div>
-<div id="copyToast" class="copy-toast">📋 邮箱已复制！</div>
-
-
-
-<!-- ========== 以下为增强优化代码（不修改原内容） ========== -->
-<style>
-  /* 1. 暗色模式适配 - 跟随系统，不覆盖原设计 */
-  @media (prefers-color-scheme: dark) {
-    body {
-      background: #121212;
-    }
-    .content, .skill-box, .friend-box, .video-card {
-      background: #1e1e1e;
-      color: #e0e0e0;
-      border-color: #333;
-    }
-    .skill-bar {
-      background: #2c2c2c;
-    }
-    .video-card a.button {
-      background: #2c2c2c;
-      color: #ccc;
-      border-top-color: #444;
-    }
-    .video-card a.button:hover {
-      background: #4285f4;
-      color: #fff;
-    }
-    .footer {
-      color: #aaa;
-    }
-    .vertical-line {
-      background: #333;
-    }
-    .video-overlay {
-      background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    }
-  }
-
-  /* 2. 技能条悬停提示小样式 */
-  .skill-item:hover .skill-progress {
-    filter: brightness(1.05);
-    transition: filter 0.2s;
-  }
-  .skill-label span:first-child {
-    cursor: help;
-    border-bottom: 1px dotted #999;
-  }
-</style>
-
-<script>
-  (function() {
-    // 确保 DOM 加载完毕再执行增强功能
-    function ready(fn) {
-      if (document.readyState !== 'loading') fn();
-      else document.addEventListener('DOMContentLoaded', fn);
-    }
-
-    ready(() => {
-      // ---------- 1. 视频卡片整卡可点击（不覆盖原有按钮跳转）----------
-      const videoCards = document.querySelectorAll('.video-card');
-      videoCards.forEach(card => {
-        const btn = card.querySelector('.button');
-        if (!btn) return;
-        // 让卡片可点击，但如果是点击按钮内部则不重复触发
-        card.style.cursor = 'pointer';
-        card.addEventListener('click', (e) => {
-          // 如果点击的是按钮本身或其内部，已经会走按钮链接，避免重复跳转
-          if (btn.contains(e.target)) return;
-          const link = btn.getAttribute('href');
-          if (link && link !== '#') window.open(link, '_blank');
-        });
-      });
-
-      // ---------- 2. 一键复制“友链申请模板”功能 ----------
-      const friendBox = document.querySelector('.friend-box');
-      if (friendBox) {
-        // 在“📝 申请友链请发送：”后面添加一个复制按钮
-        const lines = friendBox.querySelectorAll('p');
-        let targetP = null;
-        for (let p of lines) {
-          if (p.innerText.includes('申请友链请发送')) {
-            targetP = p;
-            break;
-          }
-        }
-        if (targetP && !targetP.querySelector('.copy-template-btn')) {
-          const copyBtn = document.createElement('span');
-          copyBtn.innerText = ' 📋 复制模板';
-          copyBtn.style.cssText = 'cursor:pointer; font-size:12px; background:#eef3ff; padding:2px 8px; border-radius:20px; margin-left:8px; color:#4285f4; border:1px solid #cce0ff; transition:0.2s;';
-          copyBtn.title = '点击复制申请模板内容';
-          copyBtn.addEventListener('mouseenter', () => { copyBtn.style.background = '#d4e4ff'; });
-          copyBtn.addEventListener('mouseleave', () => { copyBtn.style.background = '#eef3ff'; });
-          copyBtn.addEventListener('click', async (e) => {
-            e.stopPropagation();
-            const template = `【友链申请】
-名称：你的名称
-链接：你的链接
-头像/Logo：你的头像(URL)
-简介：你的简介;
-            try {
-              await navigator.clipboard.writeText(template);
-              showToast('✨ 模板已复制，填写后发送至邮箱即可');
-            } catch (err) {
-              const textarea = document.createElement('textarea');
-              textarea.value = template;
-              document.body.appendChild(textarea);
-              textarea.select();
-              document.execCommand('copy');
-              document.body.removeChild(textarea);
-              showToast('✨ 模板已复制 (备用方式)');
-            }
-          });
-          targetP.appendChild(copyBtn);
-        }
-      }
-
-      // 通用提示方法（复用原页面的 toast 风格）
-      function showToast(msg) {
-        let toast = document.getElementById('copyToast');
-        if (!toast) {
-          toast = document.createElement('div');
-          toast.id = 'copyToast';
-          toast.className = 'copy-toast';
-          document.body.appendChild(toast);
-        }
-        toast.innerText = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-      }
-
-      // ---------- 3. 技能条悬停显示精确百分比 ----------
-      const skillItems = document.querySelectorAll('.skill-item');
-      skillItems.forEach(item => {
-        const labelSpan = item.querySelector('.skill-label span:first-child');
-        const percentSpan = item.querySelector('.skill-label span:last-child');
-        const progressDiv = item.querySelector('.skill-progress');
-        if (labelSpan && percentSpan && progressDiv) {
-          const targetPercent = percentSpan.innerText; // "100%" 样式
-          labelSpan.setAttribute('title', `当前熟练度：${targetPercent}`);
-          // 增加一个小效果：hover 时进度条显示对应百分比浮层
-          item.addEventListener('mouseenter', () => {
-            const val = percentSpan.innerText;
-            const fakeTooltip = document.createElement('div');
-            fakeTooltip.className = 'skill-hover-tip';
-            fakeTooltip.innerText = val;
-            fakeTooltip.style.cssText = 'position:absolute; background:#1f2a3e; color:#fff; padding:2px 8px; border-radius:16px; font-size:12px; z-index:100; pointer-events:none; white-space:nowrap;';
-            const rect = percentSpan.getBoundingClientRect();
-            fakeTooltip.style.left = rect.left + 'px';
-            fakeTooltip.style.top = (rect.top - 28) + 'px';
-            document.body.appendChild(fakeTooltip);
-            item.addEventListener('mouseleave', () => { fakeTooltip.remove(); }, { once: true });
-          });
-        }
-      });
-
-      // ---------- 4. 图片懒加载 + 加载失败占位 ----------
-      const images = document.querySelectorAll('img');
-      // 为头像和视频封面添加懒加载
-      images.forEach(img => {
-        if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
-        // 处理加载失败时显示优雅的占位色块
-        img.addEventListener('error', (e) => {
-          const parent = img.parentElement;
-          const width = img.offsetWidth || 90;
-          const height = img.offsetHeight || 90;
-          // 避免无限循环
-          if (img.src.includes('data:image')) return;
-          // 根据图片所在的容器设置不同占位样式
-          if (parent.classList.contains('avatar')) {
-            img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%234285f4"/%3E%3Ctext x="50" y="65" font-size="40" text-anchor="middle" fill="white"%3E🥳%3C/text%3E%3C/svg%3E';
-          } else {
-            // 视频封面兜底图片（浅色背景+文字）
-            img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"%3E%3Crect width="400" height="225" fill="%23333"/%3E%3Ctext x="200" y="120" font-size="20" text-anchor="middle" fill="%23ccc"%3E封面加载失败%3C/text%3E%3C/svg%3E';
-          }
-          img.style.objectFit = 'cover';
-        });
-      });
-
-      // ---------- 5. 微调：为 Vmware Tools 链接增加安全提示（不破坏原链接）----------
-      const vmLink = document.querySelector('a[href*="silver.yukaidi.com"]');
-      if (vmLink && !vmLink.hasAttribute('data-tip-added')) {
-        vmLink.setAttribute('data-tip-added', 'true');
-        vmLink.setAttribute('title', '点击将跳转到外部下载站，请确保来源可信');
-        // 增加一个小的🛡️图标提示
-        const shieldSpan = document.createElement('span');
-        shieldSpan.innerText = ' 🛡️';
-        shieldSpan.style.fontSize = '14px';
-        shieldSpan.style.opacity = '0.7';
-        vmLink.appendChild(shieldSpan);
-      }
-
-      // 控制台彩蛋（小惊喜）
-      console.log('%c✨ 优化增强模块已加载 | 整卡点击 · 一键复制模板 · 技能探针 ✨', 'color: #4285f4; font-size: 14px;');
-    });
-  })();
-</script>
-
-
-<script>
-  // 新增动效脚本（不修改原有内容）
-  (function() {
-    const scrollElements = document.querySelectorAll('.left, .right, .footer');
-    scrollElements.forEach(el => el.classList.add('scroll-fade'));
-
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          scrollObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    scrollElements.forEach(el => scrollObserver.observe(el));
-  })();
-</script>
 </body>
 </html>
